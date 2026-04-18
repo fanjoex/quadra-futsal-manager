@@ -10,9 +10,17 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+// Trust proxy (Railway/Render) - necessário para rate-limit funcionar corretamente
+app.set('trust proxy', 1);
+
+// CORS - em produção restringe à URL do frontend (defina FRONTEND_URL nas env vars, separando múltiplas por vírgula)
+const allowedOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(',').map(o => o.trim())
+  : true;
+
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(morgan('dev'));
 app.use(express.json());
 
@@ -35,6 +43,11 @@ app.use('/api/auth', require('./routes/authSupabase'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Quadra Futsal API - Online' });
+});
+
+// Healthcheck (Railway/Render usam para monitorar)
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 app.use((err, req, res, next) => {
