@@ -7,8 +7,10 @@ import { Toaster } from 'react-hot-toast'
 import './index.css'
 
 // Em produção, usa VITE_API_URL (Railway). Em dev, usa o proxy do Vite.
+console.log('[BUILD] VITE_API_URL =', import.meta.env.VITE_API_URL)
 if (import.meta.env.VITE_API_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_URL
+  console.log('[axios] baseURL configurado:', axios.defaults.baseURL)
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
