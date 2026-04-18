@@ -1,0 +1,39 @@
+{
+  "name": "quadra-futsal-manager",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento de quadras de futsal",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/server.js",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.103.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.10.0",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.4",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "futsal",
+    "quadra",
+    "agendamento",
+    "gestao"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT"
+}
